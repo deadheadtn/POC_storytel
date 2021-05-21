@@ -26,14 +26,14 @@ def home():
 def count_and_save_words(message):
     return [message]
 #add Message
-@app.route('/api/message', methods=['PUT'])
+@app.route('/api/message', methods=['PUT', 'POST'])
 def addmessaage():
     data = request.get_json()
-    message=data['message']
+    message=data['Message']
     q = Queue(connection=redis_conn)
     job = q.enqueue_call(
             func=count_and_save_words, args=(message,), result_ttl=604800)
-    return "http://"+os.getenv("HOST", "127.0.0.1")+":"+os.getenv("PORT", "5000")+"/api/message/"+(job.get_id())
+    return {"url": "/api/message/"+(job.get_id())}
 
 #view Message
 @app.route("/api/message/<job_key>", methods=['GET'])
@@ -43,11 +43,10 @@ def get_results(job_key):
         if job.is_finished:
             return str(job.result), 200
         else:
-            return "Nay!", 202
+            return "Nope!", 202
     except Exception as exception:
         abort(404, description=exception)
 
 
 if __name__ == "__main__":
     app.run(debug=False)
-
