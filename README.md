@@ -26,12 +26,15 @@ Run `docker-compose down` to stop the app.
 ```
 POST /api/message
 ```
+```
+PUT /api/message
+```
 
 **Parameters:**
 
-Name | Type | Mandatory | Description
------------- | ------------ | ------------ | ------------
-Message | STRING | YES | This parameter is very important
+Name | Type | Mandatory | Description | Format
+------------ | ------------ | ------------ | ------------ | ------------
+Message | STRING | YES | This parameter is very important | JSON
 
 **Data Source:**
 in-memory storage be careful
@@ -39,7 +42,7 @@ in-memory storage be careful
 **Response:**
 ```javascript
 {
-  "url": "/api/message/{id}"
+  "url": "{host}/api/message/{id}"
 }
 ```
 ------
