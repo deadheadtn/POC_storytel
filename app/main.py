@@ -29,7 +29,7 @@ def count_and_save_words(message):
 @app.route('/api/message', methods=['PUT', 'POST'])
 def addmessaage():
     data = request.get_json()
-    message=data['Message']
+    message=str(data['Message'])
     q = Queue(connection=redis_conn)
     job = q.enqueue_call(
             func=count_and_save_words, args=(message,), result_ttl=604800)
@@ -38,7 +38,7 @@ def addmessaage():
 #view Message
 @app.route("/api/message/<job_key>", methods=['GET'])
 def get_results(job_key):
-    job = Job.fetch(job_key, connection=redis_conn)
+    job = Job.fetch(str(job_key), connection=redis_conn)
     try:
         if job.is_finished:
             return str(job.result), 200
