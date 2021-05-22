@@ -52,7 +52,9 @@ def token_required(f):
 @app.route('/register', methods=['POST'])
 def signup_user():
     data = request.get_json()
-
+    if (data['name']==None  or data['password']==None ):
+        exception= "Please provide a valid non null name or password"
+        abort(404, description=messageError)
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
     new_user = Users(public_id=str(uuid.uuid4()), name=data['name'], password=hashed_password, admin=False)
@@ -93,6 +95,9 @@ def count_and_save_words(message):
 def addmessaage(self):
     data = request.get_json()
     message=str(data['Message'])
+    if message==None:
+        exception= "Please provide a valid non null message"
+        abort(404, description=messageError)
     q = Queue(connection=redis_conn)
     job = q.enqueue_call(
             func=count_and_save_words, args=(message,), result_ttl=604800)
