@@ -53,7 +53,7 @@ def token_required(f):
 def signup_user():
     data = request.get_json()
     if (data.get("name")==None  or data.get('password')==None ):
-        exception= "Please provide a valid non null name or password"
+        messageError= "Please provide a valid non null name or password"
         return {"error" :messageError}
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
