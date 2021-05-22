@@ -101,6 +101,15 @@ Message | STRING | YES | This parameter is very important | JSON
 **Data Source:**
 in-memory storage be careful
 
+**HTTP Request example**
+
+    POST /api/message HTTP/1.1
+    Host: 127.0.0.1:5000
+    x-access-tokens: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIwNzY5YmMyNi0wYzA0LTRlZTgtOWI2Ni02YTIwNWE1N2RhMGMiLCJleHAiOjE2MjE3MDI2NzZ9.Tz8Z9Q6ZSsWUlg0j1HSE8Ej8BAtUON05cyrKOl95A6Y
+    Content-Type: application/json
+
+    {"Message": "Insert your message here"}
+
 **Response:**
 ```javascript
 {
@@ -121,6 +130,16 @@ Name | Type | Mandatory | Description
 
 **Data Source:**
 in-memory storage be careful
+
+**HTTP Request example**
+
+    GET /api/message/28d5946a-4435-4e71-a7cc-d7ce2c56651c HTTP/1.1
+    Host: 127.0.0.1:5000
+    Authorization: Basic dGVzdDp0ZXN0
+    x-access-tokens: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIwNzY5YmMyNi0wYzA0LTRlZTgtOWI2Ni02YTIwNWE1N2RhMGMiLCJleHAiOjE2MjE3MDI2NzZ9.Tz8Z9Q6ZSsWUlg0j1HSE8Ej8BAtUON05cyrKOl95A6Y
+    Cache-Control: no-cache
+    Postman-Token: 8a9bf1bd-aed4-d417-71a3-13aa9026fdff
+
 
 **Response:**
 ```javascript

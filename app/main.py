@@ -64,7 +64,7 @@ def signup_user():
     return jsonify({'message': 'registered successfully'})
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET'])
 def login_user():
 
   auth = request.authorization
