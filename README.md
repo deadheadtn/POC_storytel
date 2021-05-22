@@ -36,11 +36,14 @@ password | STRING | YES | password preferably > 8 characters | JSON
 
 **Data Source:**
 in-memory storage be careful
-HTTP Request
-> POST /register HTTP/1.1
-Host: 127.0.0.1:5000
-Content-Type: application/json
-{"name": "test1", "password": "test1"}
+
+
+**HTTP Request example**
+
+    POST /register HTTP/1.1
+    Host: 127.0.0.1:5000
+    Content-Type: application/json
+    {"name": "test1", "password": "test1"}
 
 **Response:**
 ```javascript
@@ -63,13 +66,12 @@ content-type | STRING | YES | password preferably > 8 characters
 **Data Source:**
 in-memory storage be careful
 
-HTTP Request
+**HTTP Request example**
 
-> GET /login HTTP/1.1
-Host: 127.0.0.1:5000
-Authorization: Basic dGVzdE5hbWU6dGVzdFBhc3N3b3Jk
-Content-Type: application/json
-
+    GET /login HTTP/1.1
+    Host: 127.0.0.1:5000
+    Authorization: Basic dGVzdE5hbWU6dGVzdFBhc3N3b3Jk
+    Content-Type: application/json
 
 **Response:**
 ```javascript
