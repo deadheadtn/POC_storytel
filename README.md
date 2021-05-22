@@ -60,7 +60,7 @@ GET /login
 
 Name | value | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-authorization  | Basic base64(name:pass) | YES |  
+authorization  | Basic base64(name:pass) | YES |  send the registred name:pass as base64
 content-type | STRING | YES | password preferably > 8 characters
 
 **Data Source:**
@@ -113,7 +113,7 @@ in-memory storage be careful
 **Response:**
 ```javascript
 {
-  "url": "{host}/api/message/{id}"
+  "url": "/api/message/{id}"
 }
 ```
 ------
