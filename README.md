@@ -22,6 +22,49 @@ Run `docker-compose down` to stop the app.
 ## API Endpoints
 
 
+### Register (user)
+```
+POST /register
+```
+
+**Parameters:**
+
+Name | Type | Mandatory | Description | Format
+------------ | ------------ | ------------ | ------------ | ------------
+name | STRING | YES | unique username | JSON
+password | STRING | YES | password preferably > 8 characters | JSON
+
+**Data Source:**
+in-memory storage be careful
+
+**Response:**
+```javascript
+{"message":"registered successfully"}
+```
+------
+
+### Login (user)
+```
+GET /login
+```
+
+**Header:**
+
+Name | value | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+authorization  | Basic base64(name:pass) | YES |  
+content-type | STRING | YES | password preferably > 8 characters
+
+**Data Source:**
+in-memory storage be careful
+
+**Response:**
+```javascript
+{"message":"registered successfully"}
+```
+------
+
+
 ### Create (Message)
 ```
 POST /api/message
@@ -29,6 +72,13 @@ POST /api/message
 ```
 PUT /api/message
 ```
+
+**Header:**
+
+Name | value | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+x-access-tokens | ***JWT from login***| YES | JWT for authentication
+content-type | application/json | YES | specifying the content being processed by the API
 
 **Parameters:**
 
