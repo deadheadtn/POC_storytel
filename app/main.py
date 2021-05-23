@@ -87,18 +87,22 @@ Login and authentication phase
 @limiter.limit("20 per minute")
 def login_user():
 
-  auth = request.authorization
+    auth = request.authorization
 
-  if not auth or not auth.username or not auth.password:
-     return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})
+    if not auth or not auth.username or not auth.password:
+        return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})
 
-  user = Users.query.filter_by(name=auth.username).first()
+    user = Users.query.filter_by(name=auth.username).first()
+    if(user is not None):
+        if check_password_hash(user.password, auth.password):
+            token = jwt.encode({'try_gussing_the_secret_code': "",'public_id': user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+            return jsonify({'token' : token.decode('UTF-8')})
+        else:
+            return jsonify({'message': 'Wrong name or password'})
+    else:
+        return jsonify({'message': "Wrong name or password"})
 
-  if check_password_hash(user.password, auth.password):
-     token = jwt.encode({'try_gussing_the_secret_code': "",'public_id': user.public_id, 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
-     return jsonify({'token' : token.decode('UTF-8')})
-
-  return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
+    return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
 
 
 """
