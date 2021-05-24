@@ -137,14 +137,14 @@ in-memory storage be careful
     Host: 127.0.0.1:5000
     Authorization: Basic dGVzdDp0ZXN0
     x-access-tokens: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIwNzY5YmMyNi0wYzA0LTRlZTgtOWI2Ni02YTIwNWE1N2RhMGMiLCJleHAiOjE2MjE3MDI2NzZ9.Tz8Z9Q6ZSsWUlg0j1HSE8Ej8BAtUON05cyrKOl95A6Y
-    Cache-Control: no-cache
-    Postman-Token: 8a9bf1bd-aed4-d417-71a3-13aa9026fdff
 
 
 **Response:**
 ```javascript
 [Message_here]
 ```
+## Client for testing
+in the Client folder a [client.py](https://github.com/deadheadtn/POC_storytel/blob/main/Client/client.py) python script has been provided in order to test the API.
 
 ## Security risks/assumptions
 
@@ -164,21 +164,35 @@ Security Engineer - Coding Challenge
 ***I have highlighted the keywords
 
 ---
+
+### API rate limiter
+using the flask-limiter module in order to reduce the chance for a **bruteforce attack** on the endpoints.
+it is set to 20 API call per minute. which translates to 1 request every 3 second.
+
+
 ### Message protection
 In the view endpoint a **32 characters long alphanumeric** values identifier was used in order to minimise the risk of brute-forcing the id to get access to messages.
 
-Due to time restrictions no authentication or authorisation method was used but confidentiality of information is still preserved.
-
-This system on the other hand have some limitations to what it can handle so I made sure to include how many worker and threads the APP can leverage in order to accomodate a large number of requests and can be modified in the `Dockerfile` an  more specifically in `--workers 1 --threads 8 `
+This system on the other hand have some limitations to what it can handle so I made sure to include how many worker and threads the APP can leverage in order to accommodate a large number of requests.
+This can be modified in the `Dockerfile` an  more specifically in `--workers 1 --threads 8 `
 
 
 ### Advantages of using Redis as in-memory storage
 For instance an attacker could supply a set of strings that are known to hash to the same bucket into a hash table in order to turn the O(1) expected time (the average time) to the O(N) worst case, consuming more CPU than expected, and ultimately causing a Denial of Service.
 To prevent this specific attack, Redis uses a per-execution pseudo-random seed to the hash function.
 
-Redis implements the SORT command using the qsort algorithm. Currently, the algorithm is not randomized, so it is possible to trigger a quadratic worst-case behavior by carefully selecting the right set of inputs.
-
 
 ### String escaping and NoSQL injection
 
 The Redis protocol has no concept of string escaping, so injection is impossible under normal circumstances using a normal client library. The protocol uses prefixed-length strings and is completely binary safe.
+
+For that reason input casting has been performed before passing to the Redis server.
+
+### JWT authentication
+
+a fully functional jwt authentication has been implemented in order for better Traceability of actions, as well as a way to provide authentication for clients.
+
+ - HS256
+ - 57 char long secret
+
+ 

@@ -34,7 +34,7 @@ Setting up the limiter default limit rate
 limiter = Limiter(
     app,
     key_func=get_remote_address,
-    default_limits=["10 per minute"]
+    default_limits=["20 per minute"]
 )
 
 db = SQLAlchemy(app)
