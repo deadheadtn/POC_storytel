@@ -69,6 +69,9 @@ def signup_user():
     if (data.get("name")==None  or data.get('password')==None ):
         messageError= "Please provide a valid non null name or password"
         return {"error" :messageError}
+    if (len(data.get("password"))<8):
+        messageError= "Please provide a stronger password"
+        return {"error" :messageError}
     hashed_password = generate_password_hash(data['password'], method='sha256')
     if(Users.find_by_username(data.get("name")) is not None):
         return jsonify({'message': 'registered Failed, User already exists'})
