@@ -18,4 +18,4 @@ datetime
 uuid
 Flask-SQLAlchemy
 flask-limiter
-PyJWT==1.7.1
+PyJWT==2.4.0
