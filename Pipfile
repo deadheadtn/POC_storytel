@@ -11,7 +11,7 @@ pipenv-to-requirements = "*"
 
 [packages]
 redis = "==3.5.2"
-flask = "==1.1.2"
+flask = "==2.2.5"
 gunicorn = "==20.0.4"
 rq = "*"
 
